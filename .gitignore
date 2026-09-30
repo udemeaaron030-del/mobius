@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Environment files with secrets — NEVER commit these
+.env
+.env.local
+.env*.local
+
+# Local data (waitlist signups, launch config)
+.data/
+
+# Misc
+.DS_Store
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
