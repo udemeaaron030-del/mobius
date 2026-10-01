@@ -51,17 +51,15 @@ export async function verifyTransaction(
 
     // Verify recipient matches treasury
     const recipientMatch = recipient === config.treasuryAddress ||
-      tx.meta?.postTokenBalances?.some(b => b.owner === config.treasuryAddress);
+      (tx.meta?.postTokenBalances?.some(b => b.owner === config.treasuryAddress) ?? false);
 
     // Verify token mint
     const mintMatch = tokenMint === config.tokenMint ||
-      tx.meta?.postTokenBalances?.some(b => b.mint === config.tokenMint);
+      (tx.meta?.postTokenBalances?.some(b => b.mint === config.tokenMint) ?? false);
 
     // Verify sender
     const senderMatch = sender === expectedSender ||
-      tx.transaction.message.accountKeys.some(k =>
-        ('pubkey' in k ? k.pubkey.toString() : k.toString()) === expectedSender
-      );
+      tx.transaction.message.accountKeys.some(k => k.pubkey.toString() === expectedSender);
 
     const valid = recipientMatch && mintMatch && senderMatch && amount >= expectedAmount;
 
