@@ -1,47 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import path from 'path';
+import { kvGet, kvSet, isKvConfigured } from '@/lib/kv';
 
-// ═══════════════════════════════════════════════════
-// MÖBIUS — Card Waitlist
-//
-// NOTE: This stores signups in a local JSON file for development.
-// Before going to production, swap this for a real provider —
-// Mailchimp, ConvertKit, Resend audiences, or your own database —
-// so signups survive deploys and you can actually email people.
-// ═══════════════════════════════════════════════════
-
-const DATA_DIR = path.join(process.cwd(), '.data');
-const DATA_FILE = path.join(DATA_DIR, 'waitlist.json');
-
-function readList(): string[] {
-  if (!existsSync(DATA_FILE)) return [];
-  try {
-    return JSON.parse(readFileSync(DATA_FILE, 'utf8'));
-  } catch {
-    return [];
-  }
-}
-
-function writeList(list: string[]) {
-  if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
-  writeFileSync(DATA_FILE, JSON.stringify(list, null, 2));
-}
+const KEY = 'mobius:waitlist';
 
 export async function POST(request: NextRequest) {
+  if (!isKvConfigured()) return NextResponse.json({ success: false, error: 'Storage not configured yet' }, { status: 503 });
   try {
     const { email } = await request.json();
-
     if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ success: false, error: 'Enter a valid email address' }, { status: 400 });
     }
-
-    const list = readList();
+    const list = (await kvGet<string[]>(KEY)) || [];
     if (!list.includes(email)) {
       list.push(email);
-      writeList(list);
+      await kvSet(KEY, list);
     }
-
     return NextResponse.json({ success: true, message: "You're on the list." });
   } catch {
     return NextResponse.json({ success: false, error: 'Something went wrong' }, { status: 500 });
