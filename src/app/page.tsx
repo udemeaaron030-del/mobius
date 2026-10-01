@@ -55,6 +55,7 @@ export default function HomePage() {
   const { balance: walletBalance, eligible: deliveryEligible, minRequired } = useWalletBalance();
   const { enabled: buyingEnabled, secondsRemaining, launched } = useLaunchStatus();
   const [countdownOpen, setCountdownOpen] = useState(false);
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
   const { price: mobiusRate } = useTokenPrice();
   const { products, loading, error, search } = useProducts();
 
@@ -159,7 +160,8 @@ export default function HomePage() {
       setCountdownOpen(true);
       return false;
     }
-    return true;
+    setComingSoonOpen(true);
+    return false;
   }, [launched, buyingEnabled]);
 
   const submitWaitlist = useCallback(async (e: React.FormEvent) => {
@@ -686,6 +688,28 @@ export default function HomePage() {
 
       {countdownOpen && (
         <LaunchCountdownModal secondsRemaining={secondsRemaining} onClose={() => setCountdownOpen(false)} />
+      )}
+
+      {comingSoonOpen && (
+        <div className="fixed inset-0 z-[400] bg-black/75 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setComingSoonOpen(false)}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="rounded-3xl max-w-sm w-full p-8 text-center"
+            style={{ background: 'rgba(10,14,32,.97)', border: '1px solid rgba(124,92,240,.25)' }}
+          >
+            <button onClick={() => setComingSoonOpen(false)} className="float-right text-white/40 bg-transparent border-0 cursor-pointer">✕</button>
+            <div className="flex justify-center mb-5 mt-2">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg,#4c60f1,#7b5cf0,#a44bf7)' }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" /></svg>
+              </div>
+            </div>
+            <h3 className="font-display font-extrabold text-xl mb-2">Checkout opening soon</h3>
+            <p className="text-white/55 text-[14px] leading-relaxed">
+              On-chain checkout is being finished right now. Browsing, search, your wallet, and the wishlist are all live —
+              crypto payment unlocks shortly. Thanks for being early.
+            </p>
+          </div>
+        </div>
       )}
 
       <WalletModal />
