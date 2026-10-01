@@ -371,6 +371,7 @@ export default function HomePage() {
             />
           </div>
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(2,5,16,.5) 0%, rgba(2,5,16,.1) 30%, rgba(2,5,16,.15) 55%, rgba(2,5,16,.65) 85%, rgba(2,5,16,1) 100%)' }} />
+          <div className="md:hidden absolute inset-x-0 top-0 h-24" style={{ background: 'linear-gradient(to bottom, rgba(2,5,16,1), transparent)' }} />
         </div>
 
         <section className="relative z-[1] w-full pt-24 pb-20 px-4 sm:px-6">
