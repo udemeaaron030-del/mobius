@@ -351,6 +351,12 @@ export default function HomePage() {
                 backgroundSize: 'contain',
                 backgroundPosition: 'center center',
                 backgroundRepeat: 'no-repeat',
+                WebkitMaskImage: 'radial-gradient(ellipse 65% 60% at center, black 45%, transparent 85%)',
+                maskImage: 'radial-gradient(ellipse 65% 60% at center, black 45%, transparent 85%)',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskSize: '100% 100%',
+                maskSize: '100% 100%',
               }}
             />
           </div>
