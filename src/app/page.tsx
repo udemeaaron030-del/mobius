@@ -339,8 +339,7 @@ export default function HomePage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
-            style={{ objectPosition: 'center 35%' }}
+            className="object-cover object-[65%_40%] sm:object-[center_35%]"
           />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(2,5,16,.5) 0%, rgba(2,5,16,.1) 30%, rgba(2,5,16,.15) 55%, rgba(2,5,16,.65) 85%, rgba(2,5,16,1) 100%)' }} />
         </div>
