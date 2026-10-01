@@ -333,15 +333,27 @@ export default function HomePage() {
       {/* HERO */}
       <div className="relative overflow-hidden min-h-[560px] sm:min-h-[640px] lg:min-h-[760px] flex items-center">
         <div className="absolute inset-0 z-0">
-          <div
-            className="md:hidden absolute inset-0"
-            style={{
-              backgroundImage: "url('/images/hero.jpg')",
-              backgroundSize: 'contain',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
-            }}
-          />
+          <div className="md:hidden absolute inset-0 overflow-hidden">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: "url('/images/hero.jpg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                filter: 'blur(50px) saturate(1.4) brightness(0.7)',
+                transform: 'scale(1.25)',
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: "url('/images/hero.jpg')",
+                backgroundSize: 'contain',
+                backgroundPosition: 'center center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </div>
           <div className="hidden md:block absolute inset-0">
             <Image
               src="/images/hero.jpg"

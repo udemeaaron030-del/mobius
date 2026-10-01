@@ -35,7 +35,9 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(76,96,241,.03), transparent 60%);
+  background:
+    radial-gradient(ellipse 900px 700px at 50% 0%, rgba(76,96,241,.05), transparent 65%),
+    radial-gradient(ellipse 700px 500px at 80% 15%, rgba(168,85,247,.03), transparent 60%);
   pointer-events: none;
   z-index: -1;
 }
